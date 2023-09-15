@@ -22,10 +22,5 @@ parser.add_argument(
     help="Valores de los parametros para la consulta (Ej: '01/01/2023 01/09/2023 TEST0001')",
     required=True,
 )
-# parser.add_argument(
-#     "--path",
-#     action="store",
-#     help="Path absoluto donde se va a guardar el archivo de salida",
-# )
 
 options = parser.parse_args()

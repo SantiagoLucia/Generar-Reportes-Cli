@@ -15,7 +15,6 @@ def main() -> None:
     consulta = options.consulta
     organismo = options.organismo
     parametros = (options.parametros).split(",")
-    # path = options.path
 
     template = templates.get(consulta)
     if not template:
@@ -35,7 +34,9 @@ def main() -> None:
     sql = template.substitute(**mapeo)
 
     nro_registros = 0
-    path_archivo = f"{Path.cwd()}/salida/{organismo}_{consulta}.json"
+    path_archivo = (
+        f"{Path(__file__).resolve().parent}/salida/{organismo}/{consulta}.json"
+    )
 
     if os.path.exists(path_archivo):
         os.remove(path_archivo)
@@ -49,7 +50,9 @@ def main() -> None:
             )
             nro_registros += len(data.index)
 
-    print(f"Archivo {organismo}_{consulta}.json generado - {nro_registros} registros.")
+    print(
+        f"Carpeta {organismo} y archivo {consulta}.json generado - {nro_registros} registros."
+    )
 
 
 if __name__ == "__main__":
