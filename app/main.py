@@ -1,20 +1,31 @@
 import database
 import os
-from sql_templates import test, informacion_usuario, expedientes_caratulados
+from sql_templates import (
+    test,
+    informacion_usuario,
+    caratulados_organismo,
+    en_transito_organismo,
+    caratulados_reparticion,
+    en_transito_reparticion,
+)
 from options import options
 from pathlib import Path
 
 templates = {
     "test": test.template,
     "informacion_usuario": informacion_usuario.template,
-    "expedientes_caratulados": expedientes_caratulados.template,
+    "caratulados_organismo": caratulados_organismo.template,
+    "caratulados_reparticion": caratulados_reparticion.template,
+    "en_transito_organismo": en_transito_organismo.template,
+    "en_transito_reparticion": en_transito_reparticion.template,
 }
 
 
 def main() -> None:
+    usuario = options.usuario
     consulta = options.consulta
     organismo = options.organismo
-    parametros = (options.parametros).split(",")
+    parametros = (options.parametros).split(";")
 
     template = templates.get(consulta)
     if not template:
@@ -34,9 +45,7 @@ def main() -> None:
     sql = template.substitute(**mapeo)
 
     nro_registros = 0
-    path_archivo = (
-        f"{Path(__file__).resolve().parent}/salida/{organismo}/{consulta}.json"
-    )
+    path_archivo = f"{Path(__file__).resolve().parent}/salida/{organismo}/{usuario}_{consulta}.json"
 
     if os.path.exists(path_archivo):
         os.remove(path_archivo)
@@ -51,7 +60,7 @@ def main() -> None:
             nro_registros += len(data.index)
 
     print(
-        f"Carpeta {organismo} y archivo {consulta}.json generado - {nro_registros} registros."
+        f"Carpeta {organismo} - archivo {usuario}_{consulta}.json generado - {nro_registros} registros."
     )
 
 
