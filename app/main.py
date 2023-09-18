@@ -7,6 +7,8 @@ from sql_templates import (
     en_transito_organismo,
     caratulados_reparticion,
     en_transito_reparticion,
+    salida_expedientes,
+    ingreso_expedientes,
 )
 from options import options
 from pathlib import Path
@@ -18,6 +20,8 @@ templates = {
     "caratulados_reparticion": caratulados_reparticion.template,
     "en_transito_organismo": en_transito_organismo.template,
     "en_transito_reparticion": en_transito_reparticion.template,
+    "salida_expedientes": salida_expedientes.template,
+    "ingreso_expedientes": ingreso_expedientes.template,
 }
 
 
